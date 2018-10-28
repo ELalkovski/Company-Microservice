@@ -1,6 +1,4 @@
-using System;
-
-namespace CompanyMicroservice.App.Models
+namespace CompanyMicroservice.Models
 {
     public class ErrorViewModel
     {
