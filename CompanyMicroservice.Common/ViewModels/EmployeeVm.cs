@@ -23,7 +23,7 @@
 
         [Required]
         [DisplayName("Vacation Days")]
-        [Range(0, 30)]
+        [Range(20, 30)]
         public int? VacationDays { get; set; }
 
         [Required]
