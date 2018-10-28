@@ -48,6 +48,15 @@
 
             var companyVm = this.mapper.Map<CompanyVm>(company);
 
+            if (companyVm.Employees != null && companyVm.Employees.Any())
+            {
+                companyVm.Employees = companyVm
+                    .Employees
+                    .OrderByDescending(e => e.StartingDate)
+                    .ThenBy(e => e.FullName)
+                    .ToList();
+            }
+
             return this.View(companyVm);
         }
 
