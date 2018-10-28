@@ -1,0 +1,40 @@
+﻿@model CompanyMicroservice.Common.ViewModels.CompanyVm
+@{
+    ViewData["Title"] = "Add Company";
+}
+
+<div id="add-company">
+    <div class="container custom-container">
+        <div class="row">
+            <div class="col-md-8">
+                <h3>@ViewData["Title"]</h3>
+                <hr />
+                <form asp-controller="Companies" asp-action="Add" method="post">
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input placeholder="Name" type="text" asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Information"></label>
+                        <textarea placeholder="Company information..." type="text" asp-for="Information" class="form-control"></textarea>
+                        <span asp-validation-for="Information" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CompanyLogo">Company Logo</label>
+                        <input placeholder="Company logo url" type="text" asp-for="CompanyLogo" class="form-control" />
+                    </div>
+                    <button type="submit" class="btn btn-success pull-right">
+                        <i class="fa fa-plus"></i>
+                        Add Company
+                    </button>
+                    <a asp-controller="Companies"
+                       asp-action="Index" class="btn btn-info pull-right" style="margin-right: 10px">
+                        <i class="fa fa-undo"></i>
+                        Back
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+﻿@model CompanyMicroservice.Common.ViewModels.CompanyVm
+
+<div class="col-md-4 col-sm-4 company-style" >
+    <a asp-controller="Companies" asp-action="Details" asp-route-companyId="@Model.Id">
+        <img src="@(Model.CompanyLogo ?? "/images/default-company.jpg")" height="200px class="img-responsive" alt="team img">
+    </a>
+    <div>
+        <a asp-controller="Companies" asp-action="Details" asp-route-companyId="@Model.Id"><h3>@Model.Name</h3></a>
+        <p>@(Model.Information.Substring(0, (Model.Information.Length > 30 ? 30 : Model.Information.Length - 1)))...</p>
+    </div>
+</div>

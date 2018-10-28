@@ -1,0 +1,81 @@
+﻿@model CompanyMicroservice.Common.ViewModels.EmployeeVm
+@{
+    ViewData["Title"] = "Employee Details";
+}
+
+<div id="employee-details">
+    <div class="container custom-container">
+        <div class="row">
+            <div class="col-md-8">
+                <div id="success-msg-employee" class="alert alert-success" style="display: none">
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <a asp-controller="Employees"
+                           asp-action="Edit"
+                           asp-route-employeeId="@Model.Id" class="btn btn-warning" style="margin-right: 5px">
+                            <i class="fa fa-edit"></i>
+                            Edit
+                        </a>
+                        <a data-toggle="modal"
+                           data-target="#delete-employee-modal"
+                           data-backdrop="static"
+                           data-keyboard="false" class="btn btn-danger" style="margin-right: 5px">
+                            <i class="fa fa-trash"></i>
+                            Delete
+                        </a>
+                        <a asp-controller="Companies"
+                           asp-action="Details"
+                           asp-route-companyId="@Model.CompanyId" class="btn btn-info" style="margin-right: 5px">
+                            <i class="fa fa-undo"></i>
+                            Back
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-8">
+                <div class="jumbotron">
+                    <h3>@Model.FullName</h3>
+                    <hr />
+                    <p><label>Company:</label> @Model.Company.Name</p>
+                    <p><label>Position:</label> @Model.Salary</p>
+                    <p><label>Started On:</label> @Model.StartingDate.ToShortDateString()</p>
+                    <p><label>Salary:</label> @Model.Salary<i class="fa fa-euro"></i></p>
+                    <p><label>Vacation Days:</label> @Model.VacationDays</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="delete-employee-modal" tabindex="-1" role="dialog" aria-labelledby="delete-employee-modal-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Employee</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete @(Model.FullName)?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a asp-controller="Employees"
+                   asp-action="Delete"
+                   asp-route-employeeId="@Model.Id" class="btn btn-danger">
+                    Delete
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let successMsg = '@TempData["SuccessMsg"]';
+        displayMsg(successMsg, 'success-msg-employee');
+    </script>
+}

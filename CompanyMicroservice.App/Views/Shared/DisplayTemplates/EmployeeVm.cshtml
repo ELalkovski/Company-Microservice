@@ -1,0 +1,11 @@
+﻿@model CompanyMicroservice.Common.ViewModels.EmployeeVm
+
+<tr id="@(Model.Id)">
+    <td>@Model.FullName</td>
+    <td>@Model.StartingDate.ToShortDateString()</td>
+    <td>@Model.ExperienceLevel.Type</td>
+    <td>@Model.Salary <i class="fa fa-euro"></i></td>
+    <td>@Model.VacationDays</td>
+</tr>
+
+

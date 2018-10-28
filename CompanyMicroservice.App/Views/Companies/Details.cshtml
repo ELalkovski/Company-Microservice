@@ -1,0 +1,116 @@
+﻿@model CompanyMicroservice.Common.ViewModels.CompanyVm
+@{
+    ViewData["Title"] = "Company Details";
+}
+
+<div id="company-details">
+    <div class="container custom-container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>
+                    <span style="font-style: italic">@(Model.Name)'s</span> Details
+                </h3>
+                <div id="success-msg-company" class="alert alert-success" style="display: none">
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <a asp-controller="Employees"
+                           asp-action="Add"
+                           asp-route-companyId="@Model.Id" class="btn btn-success" style="margin-right: 5px">
+                            <i class="fa fa-plus"></i>
+                            Add Employee
+                        </a>
+                        <a asp-controller="Companies"
+                           asp-action="Edit"
+                           asp-route-companyId="@Model.Id" class="btn btn-warning" style="margin-right: 5px">
+                            <i class="fa fa-edit"></i>
+                            Edit
+                        </a>
+                        <a data-toggle="modal"
+                           data-target="#delete-company-modal"
+                           data-backdrop="static"
+                           data-keyboard="false" class="btn btn-danger" style="margin-right: 5px">
+                            <i class="fa fa-trash"></i>
+                            Delete
+                        </a>
+                        <a asp-controller="Companies"
+                           asp-action="Index" class="btn btn-info" style="margin-right: 5px">
+                            <i class="fa fa-undo"></i>
+                            Back
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron">
+                    <div style="text-align: center">
+                        <h2>@Model.Name</h2>
+                        <p>@Model.Information</p>
+                        <br />
+                        <h4>Employees</h4>
+                    </div>
+                    <hr />
+                    @if (Model.Employees.Any())
+                    {
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Started on</th>
+                                    <th>Position</th>
+                                    <th>Salary</th>
+                                    <th>Vacation Days</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @Html.DisplayFor(x => x.Employees)
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>This comany doesn't have employees yet.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="delete-company-modal" tabindex="-1" role="dialog" aria-labelledby="delete-company-modal-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Company</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this company?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a asp-controller="Companies"
+                   asp-action="Delete"
+                   asp-route-companyId="@Model.Id" class="btn btn-danger">
+                    Delete
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let successMsg = '@TempData["SuccessMsg"]';
+        displayMsg(successMsg, 'success-msg-company');
+
+        $('tbody > tr').click(function () {
+            let currentRow = $(this);
+            let employeeId = $(currentRow).attr('id');
+            console.log(employeeId)
+            window.location.href = '/Employees/Details?employeeId=' + employeeId;
+        });
+    </script>
+}
